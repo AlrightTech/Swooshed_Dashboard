@@ -31,6 +31,9 @@ import UpdateCategory from './pages/Form/Sweeshed/UpdateCategory';
 import Brands from './pages/Brands';
 import AddBrand from './pages/Form/Sweeshed/AddBrand';
 import UpdateBrand from './pages/Form/Sweeshed/UpdateBrand';
+import OrderPage from './pages/OrderPage';
+import OrderDetail from './components/Sweeshed/OrderDetail';
+import RegisteredUsers from './pages/RegisteredUsers';
 // import TechnologyUpdateForm from './pages/Form/TechnologyUpdateForm';
 // import PortfolioUpdateForm from './pages/Form/PortfolioUpdateForm';
 // import TestimonialUpdateForm from './pages/Form/TestimonialUpdateForm';
@@ -61,6 +64,31 @@ function App() {
           <Route element={<DefaultLayout />}>
             <Route index path="/" element={<CategoriesPage />} />
 
+            {/* //////// routes for order/////////// */}
+            <Route
+              path="/order"
+              element={
+                <Suspense fallback={<Loader />}>
+                  <OrderPage />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/orderDetail/:id"
+              element={
+                <Suspense fallback={<Loader />}>
+                  <OrderDetail   />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/category/:id"
+              element={
+                <Suspense fallback={<Loader />}>
+                  <UpdateCategory />
+                </Suspense>
+              }
+            />
             {/* //////// routes for Categories/////////// */}
             <Route
               path="/categories"
@@ -113,6 +141,17 @@ function App() {
                 </Suspense>
               }
             />
+            {/* //////// routes for User/////////// */}
+
+            <Route
+              path="/users"
+              element={
+                <Suspense fallback={<Loader />}>
+               <RegisteredUsers/>
+                </Suspense>
+              }
+            />
+          
 
             {/* routes for technologies */}
 

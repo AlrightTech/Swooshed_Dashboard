@@ -1,9 +1,8 @@
-import  { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import Logo from '../images/logo/logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faCalendarWeek, faCopyright}  from '@fortawesome/free-solid-svg-icons';
-
+import { faCalendarWeek, faCopyright, faUser } from '@fortawesome/free-solid-svg-icons';
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -66,12 +65,12 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
     >
       {/* <!-- SIDEBAR HEADER --> */}
       <div className="flex items-center justify-between gap-2 px-16  py-5.5 lg:py-10 ">
-      <div className='flex justify-center items-center'>
-      <NavLink to="/">
-          <img src={Logo} alt="Logo" style={{ height:"120px"}} />
-          {/* <h2><b>Solaad</b></h2> */}
-        </NavLink>
-      </div>
+        <div className="flex items-center justify-center">
+          <NavLink to="/">
+            <img src={Logo} alt="Logo" style={{ height: '120px' }} />
+            {/* <h2><b>Solaad</b></h2> */}
+          </NavLink>
+        </div>
 
         <button
           ref={trigger}
@@ -93,7 +92,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               fill=""
             />
           </svg>
-          
         </button>
       </div>
       {/* <!-- SIDEBAR HEADER --> */}
@@ -110,15 +108,24 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             <ul className="mb-6 flex flex-col gap-1.5">
               <li>
                 <NavLink
+                  to="/order"
+                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                    pathname.includes('tables') && 'bg-graydark dark:bg-meta-4'
+                  }`}
+                >
+                  <FontAwesomeIcon icon={faCalendarWeek} />
+                  Orders
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
                   to="/categories"
                   className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
                     pathname.includes('tables') && 'bg-graydark dark:bg-meta-4'
                   }`}
                 >
-                 
-
-                <FontAwesomeIcon icon={faCalendarWeek} />
-                 Categories
+                  <FontAwesomeIcon icon={faCalendarWeek} />
+                  Categories
                 </NavLink>
               </li>
               <li>
@@ -128,10 +135,19 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     pathname.includes('tables') && 'bg-graydark dark:bg-meta-4'
                   }`}
                 >
-                 
-
-                 <FontAwesomeIcon icon={faCopyright} />
-                 Brands
+                  <FontAwesomeIcon icon={faCopyright} />
+                  Brands
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/users"
+                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                    pathname.includes('tables') && 'bg-graydark dark:bg-meta-4'
+                  }`}
+                >
+                 <FontAwesomeIcon icon={faUser} />
+                  Registered Users
                 </NavLink>
               </li>
 
@@ -256,8 +272,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   Services
                 </NavLink>
               </li> */}
-
-   
 
               {/* <li>
                 <NavLink
@@ -560,8 +574,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                           />
                         </svg>
                       </NavLink> */}
-                      {/* <!-- Dropdown Menu Start --> */}
-                      {/* <div
+              {/* <!-- Dropdown Menu Start --> */}
+              {/* <div
                         className={`translate transform overflow-hidden ${
                           !open && 'hidden'
                         }`}
@@ -591,8 +605,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                           </li>
                         </ul>
                       </div> */}
-                      {/* <!-- Dropdown Menu End --> */}
-                    {/* </React.Fragment>
+              {/* <!-- Dropdown Menu End --> */}
+              {/* </React.Fragment>
                   );
                 }}
               </SidebarLinkGroup> */}
