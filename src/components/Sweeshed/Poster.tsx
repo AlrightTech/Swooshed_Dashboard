@@ -7,15 +7,15 @@ import axios from 'axios';
 import { Toaster, toast } from 'react-hot-toast';
 import { BASEURL } from '../Api/Api_Url';
 
-export default function Categories() {
-  const [categoryData, setCategory] = useState([]);
+export default function Poster() {
+  const [poster, setPoster] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${BASEURL}/api/admin/getAllCategories`);
-        setCategory(response?.data.categories);
-        console.log(response.data.categories, 'data fetched');
+        const response = await axios.get(`${BASEURL}/api/admin/getAllPoster`);
+        setPoster(response?.data.poster);
+        console.log(response.data.poster, 'data fetched');
       } catch (error) {
         console.log(error);
       }
@@ -26,9 +26,9 @@ export default function Categories() {
   const handleDelete = async (id: any) => {
     console.log(id)
     try {
-      await axios.delete(`${BASEURL}/api/admin/deleteCategory`,{ data: { _id: id } });
+      await axios.delete(`${BASEURL}/api/admin/deletePoster`,{ data: { _id: id } });
 
-      setCategory((prevData) => {
+      setPoster((prevData) => {
         // Filter out the deleted record from the previous data
         const newData = prevData.filter((e) => e._id !== id);
         return newData;
@@ -47,9 +47,7 @@ export default function Categories() {
           <table className="w-full table-auto">
             <thead>
               <tr className="bg-gray-2 text-left dark:bg-meta-4">
-                <th className="min-w-[220px] py-4 px-4 text-sm font-medium text-black dark:text-white xl:pl-11">
-                  <b>Category Title</b>
-                </th>
+               
               
                 <th className="min-w-[120px] py-4 px-4 text-sm font-medium text-black dark:text-white">
                   <b>Image</b>
@@ -60,17 +58,12 @@ export default function Categories() {
               </tr>
             </thead>
             <tbody>
-              {categoryData?.map((item) => {
-                const { _id, name, image } = item;
+              {poster?.map((item) => {
+                const { _id, image } = item;
              
                 return (
                   <tr key={_id}>
-                    <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
-                      <h5 className="text-sm font-medium text-black dark:text-white">
-                        {/* {item?.event_title} */}
-                        {name}
-                      </h5>
-                    </td>
+                
                   
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <p className="inline-flex py-1 px-3 text-sm font-medium text-success">
@@ -92,14 +85,14 @@ export default function Categories() {
                         >
                           <FontAwesomeIcon icon={faTrashAlt} />
                         </button>
-                        <Link to={`/category/${_id}`}>
+                        {/* <Link to={`/poster/${_id}`}>
                           <button
                             className="hover:text-primary"
                             style={{ color: '#40916c', fontSize: '16px' }}
                           >
                             <FontAwesomeIcon icon={faPenToSquare} />
                           </button>
-                        </Link>
+                        </Link> */}
                       </div>
                     </td>
                   </tr>

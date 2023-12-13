@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import UserOne from '../images/user/user-01.png';
+
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -54,7 +54,7 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            Rohan
+           Admin
           </span>
         </span>
 
@@ -90,8 +90,8 @@ const DropdownUser = () => {
           dropdownOpen === true ? 'block' : 'hidden'
         }`}
       >
-        <ul className="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark">
-          {/* <li>
+        {/* <ul className="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark">
+          <li>
             <Link
               to="/profile"
               className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
@@ -115,7 +115,7 @@ const DropdownUser = () => {
               </svg>
               My Profile
             </Link>
-          </li> */}
+          </li>
           <li>
             <Link
               to="/logo"
@@ -138,7 +138,7 @@ const DropdownUser = () => {
             </Link>
           </li>
 
-          {/* <li>
+          <li>
             <Link
               to="/settings"
               className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
@@ -162,8 +162,8 @@ const DropdownUser = () => {
               </svg>
               Account Settings
             </Link>
-          </li>  */}
-        </ul>
+          </li> 
+        </ul> */}
         <button
           onClick={handleLogout}
           className="flex items-center gap-3.5 py-4 px-6 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"

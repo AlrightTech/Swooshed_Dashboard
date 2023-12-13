@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import Logo from '../images/logo/logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendarWeek, faCopyright, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarWeek, faCopyright, faUser,faList } from '@fortawesome/free-solid-svg-icons';
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -124,7 +124,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     pathname.includes('tables') && 'bg-graydark dark:bg-meta-4'
                   }`}
                 >
-                  <FontAwesomeIcon icon={faCalendarWeek} />
+                 <FontAwesomeIcon icon={faList} />
                   Categories
                 </NavLink>
               </li>
@@ -137,6 +137,17 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 >
                   <FontAwesomeIcon icon={faCopyright} />
                   Brands
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/posters"
+                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                    pathname.includes('tables') && 'bg-graydark dark:bg-meta-4'
+                  }`}
+                >
+                  <FontAwesomeIcon icon={faCopyright} />
+                  Posters
                 </NavLink>
               </li>
               <li>
