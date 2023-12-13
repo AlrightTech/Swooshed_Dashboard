@@ -120,14 +120,6 @@ function App() {
             />
             {/* //////// routes for Brands/////////// */}
 
-            <Route
-              path="/posters"
-              element={
-                <Suspense fallback={<Loader />}>
-               <RegisteredUsers/>
-                </Suspense>
-              }
-            />
              <Route
               path="/posters"
               element={
@@ -177,14 +169,6 @@ function App() {
 
             {/* routes for testimonials */}
 
-            {/* <Route
-              path="/testimonials"
-              element={
-                <Suspense fallback={<Loader />}>
-                  <Testimonials />
-                </Suspense>
-              }
-            />
             <Route
               path="/addPoster"
               element={
@@ -201,7 +185,6 @@ function App() {
                 </Suspense>
               }
             />
-            {/* //////// routes for User/////////// */}
 
             <Route
               path="/users"
