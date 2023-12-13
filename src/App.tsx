@@ -34,6 +34,8 @@ import UpdateBrand from './pages/Form/Sweeshed/UpdateBrand';
 import OrderPage from './pages/OrderPage';
 import OrderDetail from './components/Sweeshed/OrderDetail';
 import RegisteredUsers from './pages/RegisteredUsers';
+import Promo from './pages/Promo/Promo';
+import AddPromo from './pages/Promo/AddPromo';
 // import TechnologyUpdateForm from './pages/Form/TechnologyUpdateForm';
 // import PortfolioUpdateForm from './pages/Form/PortfolioUpdateForm';
 // import TestimonialUpdateForm from './pages/Form/TestimonialUpdateForm';
@@ -151,7 +153,22 @@ function App() {
                 </Suspense>
               }
             />
-          
+             <Route
+              path="/promo"
+              element={
+                <Suspense fallback={<Loader />}>
+                  <Promo />
+                </Suspense>
+              }
+            />
+           <Route
+              path="/addPromo"
+              element={
+                <Suspense fallback={<Loader />}>
+                  <AddPromo />
+                </Suspense>
+              }
+            />
 
             {/* routes for technologies */}
 
