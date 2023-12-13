@@ -118,7 +118,7 @@ function App() {
                 </Suspense>
               }
             />
-            {/* //////// routes for Brands/////////// */}
+            {/* //////// routes for poster/////////// */}
 
              <Route
               path="/posters"

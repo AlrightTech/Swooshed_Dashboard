@@ -129,6 +129,12 @@ const OrderDetail = () => {
             {prodData?.product.name}
           </span>
         </div>
+        <div>
+          <span className=" text-[1.2rem] text-black ">Brand: </span>
+          <span className=" text-[1.2rem] text-black">
+            {prodData?.product.brandId?.name}
+          </span>
+        </div>
         <p>please check carefully</p>
       </div>
       {/* ///////////////////////   images   /////////////////// */}
