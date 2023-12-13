@@ -85,13 +85,7 @@ export default function UpdateCategory() {
   const validateForm = () => {
     let isValid = true;
 
-    if (!title) {
-      setTitleError('Please enter the event title.');
-      isValid = false;
-    } else {
-      setTitleError('');
-    }
-
+  
    
 
     return isValid;
@@ -102,8 +96,8 @@ export default function UpdateCategory() {
     if (validateForm()) {
       try {
         const formData = new FormData();
-        formData.append('categoryName', title);
-        formData.append('_id', id);
+
+        
         console.log(formData);
         if (selectedImageSrc) {
           const fileInput = inputRef.current;
@@ -220,7 +214,7 @@ export default function UpdateCategory() {
                         <div>
                           <img
                             // src={`${BASEURL}/uploads/${selectedImageSrc}`}
-                            src={`${BASEURL}/category/${selectedImageSrc}`}
+                            src={`${BASEURL}/${selectedImageSrc}`}
                             alt="Uploaded"
                             style={{ maxWidth: '150px' }}
                           />
@@ -228,7 +222,7 @@ export default function UpdateCategory() {
                       ) : (
                         <div>
                           <img
-                            src={`${BASEURL}/category/${selectedImageSrc}`}
+                            src={`${BASEURL}/${selectedImageSrc}`}
                             alt="Uploaded"
                             style={{ maxWidth: '150px' }}
                           />
@@ -254,7 +248,7 @@ export default function UpdateCategory() {
                     className="custom-input-date custom-input-date-1 w-full rounded border-[1.5px] border-stroke bg-primary py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                     style={{ color: 'white', fontWeight: 'bold' }}
                   >
-                    Update Category +
+                    Update Poster +
                   </button>
                 </div>
               </div>

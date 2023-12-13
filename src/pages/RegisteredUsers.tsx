@@ -41,9 +41,9 @@ const RegisteredUsers = () => {
             </tr>
           </thead>
           <tbody>
-           {user.map((item, index)=>{
+           {user?.map((item, index)=>{
 return(
-  <tr>
+  <tr key={ index}>
   <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
     <h5 className="font-medium text-black dark:text-white">
       {item?.name}
@@ -54,7 +54,7 @@ return(
     <p className="text-black dark:text-white">{item?.email}</p>
   </td>
   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-    <img src={`${BASEURL}/user/${item?.image}`} alt="" />
+    <img src={`${BASEURL}/${item?.image}`} alt="" className="my-5 h-20 w-40 object-cover"/>
   </td>
   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
     <div className="flex items-center space-x-3.5">
