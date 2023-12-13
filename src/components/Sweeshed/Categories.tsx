@@ -79,7 +79,7 @@ export default function Categories() {
                           // src={item?.event_Picture}
                           src={`${BASEURL}/${image}`}
                           alt="Event"
-                        />
+                        /> 
                       </p>
                     </td>
 
