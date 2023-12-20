@@ -71,8 +71,8 @@ export default function Poster() {
                           className="my-5 h-15 w-40 object-cover"
                           // src={item?.event_Picture}
                           // src={`${BASEURL}/${image}`}
-                          // src={`${BASEURL}/${image.replace(/\/+/g, '/')}`}
- src='http://161.97.129.139:5001/poster/1703057829146-bfeb9309.png'
+                          src={`${BASEURL}/${image.replace(/\/+/g, '/')}`}
+
                           alt="Event"
                         />
                       </p>
