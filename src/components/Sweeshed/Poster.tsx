@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashAlt, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
@@ -71,7 +71,7 @@ export default function Poster() {
                           className="my-5 h-15 w-40 object-cover"
                           // src={item?.event_Picture}
                           // src={`${BASEURL}/${image}`}
-                          src={`${BASEURL}/${image.replace(/\\/g, '/')}`}
+                          src={`${BASEURL}/${image.replace(/\/+/g, '/')}`}
                           alt="Event"
                         />
                       </p>
