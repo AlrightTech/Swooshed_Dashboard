@@ -19,6 +19,7 @@ const SignIn = () => {
       setError('Please enter your email and password.');
       return;
     }
+    console.log(email, password)
 
     try {
       const response = await axios.post(`${BASEURL}/api/admin/adminLogin`, {
@@ -34,6 +35,7 @@ const SignIn = () => {
         setError('Incorrect email or password.'); // Set error message for incorrect credentials
       }
     } catch (error) {
+      console.log(error)
       toast.error(
         'An error occurred during login please enter right credentials.'
       ); // Set error toaster for other errors
