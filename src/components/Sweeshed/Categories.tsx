@@ -13,7 +13,9 @@ export default function Categories() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${BASEURL}/api/admin/getAllCategories`);
+        const response = await axios.get(
+          `${BASEURL}/api/admin/getAllCategories`
+        );
         setCategory(response?.data.categories);
         console.log(response.data.categories, 'data fetched');
       } catch (error) {
@@ -24,9 +26,11 @@ export default function Categories() {
   }, []);
 
   const handleDelete = async (id: any) => {
-    console.log(id)
+    console.log(id);
     try {
-      await axios.delete(`${BASEURL}/api/admin/deleteCategory`,{ data: { _id: id } });
+      await axios.delete(`${BASEURL}/api/admin/deleteCategory`, {
+        data: { _id: id },
+      });
 
       setCategory((prevData) => {
         // Filter out the deleted record from the previous data
@@ -39,6 +43,7 @@ export default function Categories() {
       console.log(error);
     }
   };
+
   return (
     <div>
       <Toaster position="top-center" reverseOrder={false} />
@@ -50,7 +55,7 @@ export default function Categories() {
                 <th className="min-w-[220px] py-4 px-4 text-sm font-medium text-black dark:text-white xl:pl-11">
                   <b>Category Title</b>
                 </th>
-              
+
                 <th className="min-w-[120px] py-4 px-4 text-sm font-medium text-black dark:text-white">
                   <b>Image</b>
                 </th>
@@ -62,7 +67,7 @@ export default function Categories() {
             <tbody>
               {categoryData?.map((item) => {
                 const { _id, name, image } = item;
-             
+
                 return (
                   <tr key={_id}>
                     <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
@@ -71,15 +76,15 @@ export default function Categories() {
                         {name}
                       </h5>
                     </td>
-                  
+
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <p className="inline-flex py-1 px-3 text-sm font-medium text-success">
                         <img
                           className="my-5 h-15 w-40 object-cover"
-                          // src={item?.event_Picture}
-                          src={`${BASEURL}/${image}`}
+                          src={`${BASEURL}/${image.replace(/\\/g, '/')}`}
                           alt="Event"
-                        /> 
+                        />
+                        
                       </p>
                     </td>
 

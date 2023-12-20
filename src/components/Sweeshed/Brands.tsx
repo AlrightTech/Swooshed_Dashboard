@@ -86,7 +86,7 @@ export default function Brand() {
                         <img
                           className="my-5 h-15 w-40 object-cover"
                           // src={item?.event_Picture}
-                          src={`${BASEURL}/logo/${logo}`}
+                          src={`${BASEURL}/logo/${logo?.replace(/\\/g, '/')}`}
                           alt="Event"
                         />
                       </p>

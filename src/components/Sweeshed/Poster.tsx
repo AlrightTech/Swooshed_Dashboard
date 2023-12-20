@@ -70,7 +70,8 @@ export default function Poster() {
                         <img
                           className="my-5 h-15 w-40 object-cover"
                           // src={item?.event_Picture}
-                          src={`${BASEURL}/${image}`}
+                          // src={`${BASEURL}/${image}`}
+                          src={`${BASEURL}/${image.replace(/\\/g, '/')}`}
                           alt="Event"
                         />
                       </p>
