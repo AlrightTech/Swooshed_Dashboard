@@ -1,4 +1,3 @@
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
@@ -24,9 +23,11 @@ export default function Poster() {
   }, []);
 
   const handleDelete = async (id: any) => {
-    console.log(id)
+    console.log(id);
     try {
-      await axios.delete(`${BASEURL}/api/admin/deletePoster`,{ data: { _id: id } });
+      await axios.delete(`${BASEURL}/api/admin/deletePoster`, {
+        data: { _id: id },
+      });
 
       setPoster((prevData) => {
         // Filter out the deleted record from the previous data
@@ -47,8 +48,6 @@ export default function Poster() {
           <table className="w-full table-auto">
             <thead>
               <tr className="bg-gray-2 text-left dark:bg-meta-4">
-               
-              
                 <th className="min-w-[120px] py-4 px-4 text-sm font-medium text-black dark:text-white">
                   <b>Image</b>
                 </th>
@@ -60,17 +59,16 @@ export default function Poster() {
             <tbody>
               {poster?.map((item) => {
                 const { _id, image } = item;
-             
+
                 return (
                   <tr key={_id}>
-                
-                  
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <p className="inline-flex py-1 px-3 text-sm font-medium text-success">
                         <img
+                          crossorigin="anonymous"
                           className="my-5 h-15 w-40 object-cover"
                           // src={item?.event_Picture}
-                          src={`${BASEURL}/${image}`}
+                          src={`${BASEURL}${image}`}
                           // src={`${BASEURL}/${image.replace(/\/+/g, '/')}`}
 
                           alt="Event"
