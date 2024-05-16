@@ -120,7 +120,7 @@ function App() {
             />
             {/* //////// routes for poster/////////// */}
 
-             <Route
+            <Route
               path="/posters"
               element={
                 <Suspense fallback={<Loader />}>
@@ -128,7 +128,7 @@ function App() {
                 </Suspense>
               }
             />
-             <Route
+            <Route
               path="/promo"
               element={
                 <Suspense fallback={<Loader />}>
@@ -136,7 +136,7 @@ function App() {
                 </Suspense>
               }
             />
-           <Route
+            <Route
               path="/addPromo"
               element={
                 <Suspense fallback={<Loader />}>
