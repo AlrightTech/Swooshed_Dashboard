@@ -2,20 +2,20 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import '../uploader.css';
 import { BASEURL } from '../../../components/Api/Api_Url';
-import {  useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Toaster, toast } from 'react-hot-toast';
 
 export default function AddBrand() {
   const [title, setTitle] = useState('');
   const [tag, setTag] = useState('');
-
+  const [category, setCategory] = useState('HYPED'); // Default category
 
   const [dragActive, setDragActive] = useState(false);
   const [isFileSelected, setIsFileSelected] = useState(false);
 
   const [titleError, setTitleError] = useState('');
   const [TagError, setTagError] = useState('');
-
+  const [categoryError, setCategoryError] = useState('');
 
   const { id } = useParams();
 
@@ -48,31 +48,28 @@ export default function AddBrand() {
     e.preventDefault();
     if (e.target.files && e.target.files[0]) {
       setIsFileSelected(true);
-
-      console.log('File se  lected:', e.target.files[0]);
+      console.log('File selected:', e.target.files[0]);
     }
   };
 
   const onButtonClick = () => {
     inputRef.current?.click();
   };
+
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   const formData = new FormData();
 
   formData.append('name', title);
   formData.append('tag', tag);
-//   formData.append('description', description);
+  formData.append('category', category);
   if (isFileSelected) {
     const fileInput = inputRef.current;
     if (fileInput && fileInput.files && fileInput.files.length > 0) {
       console.log(fileInput.files[0]);
-
       formData.append('logo', fileInput.files[0]);
     }
   }
-
-  // ... (code for handling file selection)
 
   const validateForm = () => {
     let isValid = true;
@@ -89,7 +86,12 @@ export default function AddBrand() {
     } else {
       setTagError('');
     }
-
+    if (!category) {
+      setCategoryError('Please select a category.');
+      isValid = false;
+    } else {
+      setCategoryError('');
+    }
 
     return isValid;
   };
@@ -107,7 +109,8 @@ export default function AddBrand() {
         );
         if (response.status === 200) {
           setTitle('');
-     
+          setTag('');
+          setCategory('HYPED'); // Reset category to default
           setIsFileSelected(false);
           toast.success('Successfully Submitted!');
           navigate('/brand');
@@ -123,7 +126,6 @@ export default function AddBrand() {
   return (
     <div>
       <Toaster position="top-center" reverseOrder={false} />
-
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-1">
         <div className="flex flex-col gap-9">
           <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -140,17 +142,14 @@ export default function AddBrand() {
                       setTitle(e.target.value);
                     }}
                     type="text"
-                    placeholder="place Brand's title here"
+                    placeholder="Place Brand's title here"
                     required
                     className={`font-small w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-sm outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary ${
                       titleError ? 'border-red-500' : ''
                     }`}
                   />
                   {titleError && (
-                    <p
-                      className="text-red-500 text-xs"
-                      style={{ color: 'red' }}
-                    >
+                    <p className="text-red-500 text-xs" style={{ color: 'red' }}>
                       {titleError}
                     </p>
                   )}
@@ -166,25 +165,42 @@ export default function AddBrand() {
                       setTag(e.target.value);
                     }}
                     type="text"
-                    placeholder="place Brand's tag"
+                    placeholder="Place Brand's tag"
                     required
                     className={`font-small w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-sm outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary ${
-                      titleError ? 'border-red-500' : ''
+                      TagError ? 'border-red-500' : ''
                     }`}
                   />
                   {TagError && (
-                    <p
-                      className="text-red-500 text-xs"
-                      style={{ color: 'red' }}
-                    >
+                    <p className="text-red-500 text-xs" style={{ color: 'red' }}>
                       {TagError}
                     </p>
                   )}
                 </div>
-
-               
-
-                {/* file uploader start  */}
+                <div>
+                  <label className="mb-3 block text-sm text-black dark:text-white">
+                    <b>Category</b>
+                  </label>
+                  <select
+                    name="category"
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
+                    required
+                    className={`font-small w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-sm outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary ${
+                      categoryError ? 'border-red-500' : ''
+                    }`}
+                  >
+                    <option value="HYPED">HYPED</option>
+                    <option value="LUXUARY">LUXUARY</option>
+                    <option value="EXCLUSIVE">EXCLUSIVE</option>
+                  </select>
+                  {categoryError && (
+                    <p className="text-red-500 text-xs" style={{ color: 'red' }}>
+                      {categoryError}
+                    </p>
+                  )}
+                </div>
+                {/* file uploader start */}
                 <div className="flex">
                   <form
                     id="form-file-upload"
@@ -210,7 +226,7 @@ export default function AddBrand() {
                     >
                       {isFileSelected ? (
                         <div>
-                          <p className=" rounded-lg p-2 text-sm font-bold    text-success">
+                          <p className="rounded-lg p-2 text-sm font-bold text-success">
                             Successfully selected the file !!
                           </p>
                         </div>
@@ -229,9 +245,7 @@ export default function AddBrand() {
                     {dragActive && <div id="drag-file-element"></div>}
                   </form>
                 </div>
-
-                {/* file uploader end  */}
-
+                {/* file uploader end */}
                 <div className="">
                   <button
                     type="submit"

@@ -8,19 +8,20 @@ import { Toaster, toast } from 'react-hot-toast';
 export default function UpdateBrand() {
   const [title, setTitle] = useState('');
   const [tag, setTag] = useState('');
-
+  const [category, setCategory] = useState(''); // New state for category
 
   const [dragActive, setDragActive] = useState(false);
   const [isFileSelected, setIsFileSelected] = useState(false);
   const [selectedImageSrc, setSelectedImageSrc] = useState('');
 
   const [titleError, setTitleError] = useState('');
-  const [TagError, setTagError] = useState('');
+  const [tagError, setTagError] = useState('');
+  const [categoryError, setCategoryError] = useState('');
+  const [fileError, setFileError] = useState('');
 
   const { id } = useParams();
 
   const navigate = useNavigate();
-  ///////////////////////////// Code for drag drop image/////////////////////////////
 
   const inputRef = React.useRef<HTMLInputElement>(null);
 
@@ -40,6 +41,7 @@ export default function UpdateBrand() {
     setDragActive(false);
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
       setIsFileSelected(true);
+      setFileError('');
       const selectedFile = e.dataTransfer.files[0];
       displaySelectedImage(selectedFile);
     }
@@ -49,7 +51,7 @@ export default function UpdateBrand() {
     e.preventDefault();
     if (e.target.files && e.target.files[0]) {
       setIsFileSelected(true);
-      setSelectedImageSrc(URL.createObjectURL(e.target.files[0]));
+      setFileError('');
       const selectedFile = e.target.files[0];
       displaySelectedImage(selectedFile);
     }
@@ -66,22 +68,6 @@ export default function UpdateBrand() {
   const onButtonClick = () => {
     inputRef.current?.click();
   };
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-//   const formData = new FormData();
-
-//   formData.append('categoryName', title);
-
-//   if (selectedImageSrc) {
-//     const fileInput = inputRef.current;
-//     if (fileInput && fileInput.files && fileInput.files.length > 0) {
-//       console.log(fileInput.files[0]);
-
-//       formData.append('categoryImage', fileInput.files[0]);
-//     }
-//   }
-
-  // ... (code for handling file selection)
 
   const validateForm = () => {
     let isValid = true;
@@ -93,27 +79,35 @@ export default function UpdateBrand() {
       setTitleError('');
     }
     if (!tag) {
-        setTagError('Please enter the event Tag.');
-        isValid = false;
-      } else {
-        setTagError('');
-      }
-  
-
-   
+      setTagError('Please enter the event tag.');
+      isValid = false;
+    } else {
+      setTagError('');
+    }
+    if (!category) {
+      setCategoryError('Please select a category.');
+      isValid = false;
+    } else {
+      setCategoryError('');
+    }
+    if (!isFileSelected) {
+      setFileError('Please upload a file.');
+      isValid = false;
+    } else {
+      setFileError('');
+    }
 
     return isValid;
   };
 
   const handleSubmits = async () => {
-    console.log("clicked ")
     if (validateForm()) {
       try {
         const formData = new FormData();
         formData.append('name', title);
         formData.append('tag', tag);
+        formData.append('category', category); // Include category in formData
         formData.append('_id', id);
-        console.log(formData);
         if (selectedImageSrc) {
           const fileInput = inputRef.current;
           if (fileInput && fileInput.files && fileInput.files.length > 0) {
@@ -122,13 +116,15 @@ export default function UpdateBrand() {
         }
 
         const response = await axios.put(
-          `${BASEURL}/api/admin/updateBrand`, 
+          `${BASEURL}/api/admin/updateBrand`,
           formData
         );
         if (response.status === 200) {
           setTitle('');
-
+          setTag('');
+          setCategory(''); // Reset category
           setIsFileSelected(false);
+          setSelectedImageSrc('');
           toast.success('Successfully Updated!');
           navigate('/brand');
         }
@@ -140,18 +136,17 @@ export default function UpdateBrand() {
     }
   };
 
-
-  /////////////////// fetch data for single category //////////////////////
   const getData = async () => {
     try {
-      const response = await axios.post(`${BASEURL}/api/admin/getBrandById`,{
-        _id: id
+      const response = await axios.post(`${BASEURL}/api/admin/getBrandById`, {
+        _id: id,
       });
       console.log(response.data.brand);
-      setTitle(response?.data.brand.name),
-       setTag(response?.data.brand.tag),
-        setSelectedImageSrc(response?.data.brand.logo);
-
+      setTitle(response?.data.brand.name);
+      setTag(response?.data.brand.tag);
+      setCategory(response?.data.brand.category);
+      setSelectedImageSrc(response?.data.brand.logo);
+      setIsFileSelected(true); // Set file selected to true since an image is already uploaded
       console.log(response); // Handle the response data
     } catch (error) {
       console.error(error); // Handle the error
@@ -197,8 +192,6 @@ export default function UpdateBrand() {
                     </p>
                   )}
                 </div>
-
-
                 <div>
                   <label className="mb-3 block text-sm text-black dark:text-white">
                     <b>Brand Tag</b>
@@ -210,23 +203,49 @@ export default function UpdateBrand() {
                       setTag(e.target.value);
                     }}
                     type="text"
-                    placeholder="place event's title here"
+                    placeholder="place event's tag here"
                     required
                     className={`font-small w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-sm outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary ${
-                      titleError ? 'border-red-500' : ''
+                      tagError ? 'border-red-500' : ''
                     }`}
                   />
-                  {TagError && (
+                  {tagError && (
                     <p
                       className="text-red-500 text-xs"
                       style={{ color: 'red' }}
                     >
-                      {TagError}
+                      {tagError}
                     </p>
                   )}
                 </div>
-
-              
+                <div>
+                  <label className="mb-3 block text-sm text-black dark:text-white">
+                    <b>Category</b>
+                  </label>
+                  <select
+                    value={category}
+                    onChange={(e) => {
+                      setCategory(e.target.value);
+                    }}
+                    required
+                    className={`font-small w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-sm outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary ${
+                      categoryError ? 'border-red-500' : ''
+                    }`}
+                  >
+                    <option value="">Select category</option>
+                    <option value="HYPED">HYPED</option>
+                    <option value="LUXURY">LUXURY</option>
+                    <option value="EXCLUSIVE">EXCLUSIVE</option>
+                  </select>
+                  {categoryError && (
+                    <p
+                      className="text-red-500 text-xs"
+                      style={{ color: 'red' }}
+                    >
+                      {categoryError}
+                    </p>
+                  )}
+                </div>
 
                 {/* file uploader start  */}
 
@@ -255,17 +274,12 @@ export default function UpdateBrand() {
                     >
                       {!isFileSelected ? (
                         <div>
-                          <img
-                            // src={`${BASEURL}/uploads/${selectedImageSrc}`}
-                            src={`${BASEURL}/logo/${selectedImageSrc}`}
-                            alt="Uploaded"
-                            style={{ maxWidth: '150px' }}
-                          />
+                          <p>Drag and drop your file here or click to upload</p>
                         </div>
                       ) : (
                         <div>
                           <img
-                            src={`${BASEURL}/logo/${selectedImageSrc}`}
+                            src={selectedImageSrc}
                             alt="Uploaded"
                             style={{ maxWidth: '150px' }}
                           />
@@ -281,6 +295,11 @@ export default function UpdateBrand() {
                     {dragActive && <div id="drag-file-element"></div>}
                   </form>
                 </div>
+                {fileError && (
+                  <p className="text-red-500 text-xs" style={{ color: 'red' }}>
+                    {fileError}
+                  </p>
+                )}
 
                 {/* file uploader end  */}
 
