@@ -191,7 +191,7 @@ export default function AddBrand() {
                     }`}
                   >
                     <option value="HYPED">HYPED</option>
-                    <option value="LUXUARY">LUXUARY</option>
+                    <option value="LUXURY">LUXURY</option>
                     <option value="EXCLUSIVE">EXCLUSIVE</option>
                   </select>
                   {categoryError && (
