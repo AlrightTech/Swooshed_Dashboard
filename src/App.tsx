@@ -35,8 +35,8 @@ function App() {
   ) : (
     <>
       <Routes>
-        <Route path="/" element={<SignIn />} />
-        {/* <Route path="/auth/signup" element={<SignUp />} /> */}
+        <Route path="/auth/signin" element={<SignIn />} />
+        <Route path="/auth/signup" element={<SignUp />} />
         <Route element={<PrivateRoutes />}>
           <Route element={<DefaultLayout />}>
             <Route index path="/" element={<OrderPage />} />
