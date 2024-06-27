@@ -92,7 +92,7 @@ function App() {
               }
             />
 
-            {/* //////// routes for Brands/////////// */}
+            {/* //////// routes for Brands//////////// */}
 
             <Route
               path="/brand"
