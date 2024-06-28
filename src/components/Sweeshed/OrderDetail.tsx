@@ -143,10 +143,13 @@ const OrderDetail = () => {
 
         <div className="my-6 flex flex-wrap gap-2">
           {/* frontside image */}
+
           <div className="dark:bg-neutral-700 block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
+            {console.log(`${BASEURL}/${prodData?.product.backside}`)}
             <div className="relative overflow-hidden bg-cover bg-no-repeat md:h-[300px] md:w-[300px] lg:h-[300px] lg:w-[300px] ">
               <img
                 className="h-full w-full rounded-t-lg object-cover"
+                crossorigin="anonymous"
                 src={
                   prodData?.product.frontside
                     ? `${BASEURL}/${prodData?.product.frontside}`
@@ -185,10 +188,12 @@ const OrderDetail = () => {
             <div className="relative overflow-hidden bg-cover bg-no-repeat md:h-[300px] md:w-[300px] lg:h-[300px] lg:w-[300px]">
               <img
                 className="h-full w-full rounded-t-lg object-cover"
+                crossorigin="anonymous"
                 src={
-                  prodData?.product.backside
-                    ? `${BASEURL}/${prodData?.product.backside}`
-                    : `${NoImage}`
+                  `${BASEURL}/${prodData?.product?.backside}`
+                  // prodData?.product.backside
+                  //   ? `${BASEURL}/${prodData?.product.backside}`
+                  //   : `${NoImage}`
                 }
                 alt=""
               />
@@ -222,6 +227,7 @@ const OrderDetail = () => {
             <div className="relative overflow-hidden bg-cover bg-no-repeat md:h-[300px] md:w-[300px] lg:h-[300px] lg:w-[300px]">
               <img
                 className="h-full w-full rounded-t-lg object-cover"
+                crossorigin="anonymous"
                 src={
                   prodData?.product.appearance
                     ? `${BASEURL}/${prodData?.product.appearance}`
@@ -259,6 +265,7 @@ const OrderDetail = () => {
             <div className="relative overflow-hidden bg-cover bg-no-repeat md:h-[300px] md:w-[300px] lg:h-[300px] lg:w-[300px]">
               <img
                 className="h-full w-full rounded-t-lg object-cover"
+                crossorigin="anonymous"
                 src={
                   prodData?.product.inside
                     ? `${BASEURL}/${prodData?.product.inside}`
@@ -296,6 +303,7 @@ const OrderDetail = () => {
             <div className="relative overflow-hidden bg-cover bg-no-repeat md:h-[300px] md:w-[300px] lg:h-[300px] lg:w-[300px]">
               <img
                 className="h-full w-full rounded-t-lg object-cover"
+                crossorigin="anonymous"
                 src={
                   prodData?.product.receipt
                     ? `${BASEURL}/${prodData?.product.receipt}`
@@ -333,6 +341,7 @@ const OrderDetail = () => {
             <div className="relative overflow-hidden bg-cover bg-no-repeat md:h-[300px] md:w-[300px] lg:h-[300px] lg:w-[300px]">
               <img
                 className="h-full w-full rounded-t-lg object-cover"
+                crossorigin="anonymous"
                 src={
                   prodData?.product.receipt
                     ? `${BASEURL}/${prodData?.product.receipt}`
@@ -370,6 +379,7 @@ const OrderDetail = () => {
             <div className="relative overflow-hidden bg-cover bg-no-repeat md:h-[300px] md:w-[300px] lg:h-[300px] lg:w-[300px]">
               <img
                 className="h-full w-full rounded-t-lg object-cover"
+                crossorigin="anonymous"
                 src={
                   prodData?.product.sideTag
                     ? `${BASEURL}/${prodData?.product.sideTag}`
@@ -407,6 +417,7 @@ const OrderDetail = () => {
             <div className="relative overflow-hidden bg-cover bg-no-repeat md:h-[300px] md:w-[300px] lg:h-[300px] lg:w-[300px]">
               <img
                 className="h-full w-full rounded-t-lg object-cover"
+                crossorigin="anonymous"
                 src={
                   prodData?.product.additional
                     ? `${BASEURL}/${prodData?.product.additional}`
@@ -420,7 +431,7 @@ const OrderDetail = () => {
             </div>
             <div className="p-6">
               <h5 className="text-neutral-800 dark:text-neutral-50 mb-2 text-xl font-medium leading-tight">
-              Additional Image
+                Additional Image
               </h5>
 
               <button
@@ -449,12 +460,12 @@ const OrderDetail = () => {
             Authentication Result
           </h2>
           <div>
-            <label className="text-gray-900 dark:text-gray-400 mb-1 block text-sm font-medium">
+            <label className="mb-1 block text-sm font-medium text-gray-900 dark:text-gray-400">
               Editable
             </label>
             <select
               id="countries"
-              className="bg-gray-50 border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 block w-full rounded-lg border p-2.5 text-sm dark:text-white"
+              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
               value={edit}
               onChange={(e) => {
                 setEdit(e.target.value);
@@ -466,12 +477,12 @@ const OrderDetail = () => {
           </div>
 
           <div>
-            <label className="text-gray-900 dark:text-gray-400 mb-1 block text-sm font-medium">
+            <label className="mb-1 block text-sm font-medium text-gray-900 dark:text-gray-400">
               Notes
             </label>
             <textarea
               placeholder="Notes Here"
-              className="border-gray-300 w-full rounded-lg border p-2"
+              className="w-full rounded-lg border border-gray-300 p-2"
               value={editNotes}
               onChange={(e) => {
                 setEditNotes(e.target.value);
@@ -515,12 +526,12 @@ const OrderDetail = () => {
               Authentication Result
             </h2>
             <div>
-              <label className="text-gray-900 dark:text-gray-400 mb-1 block text-sm font-medium">
+              <label className="mb-1 block text-sm font-medium text-gray-900 dark:text-gray-400">
                 Result
               </label>
               <select
                 id="countries"
-                className="bg-gray-50 border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 block w-full rounded-lg border p-2.5 text-sm dark:text-white"
+                className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                 value={selectedResult}
                 onChange={(e) => {
                   setSelectedResult(e.target.value);
@@ -533,12 +544,12 @@ const OrderDetail = () => {
             </div>
 
             <div>
-              <label className="text-gray-900 dark:text-gray-400 mb-1 block text-sm font-medium">
+              <label className="mb-1 block text-sm font-medium text-gray-900 dark:text-gray-400">
                 Notes
               </label>
               <textarea
                 placeholder="Notes Here"
-                className="border-gray-300 w-full rounded-lg border p-2"
+                className="w-full rounded-lg border border-gray-300 p-2"
                 value={notes}
                 onChange={(e) => {
                   setNotes(e.target.value);
@@ -562,21 +573,28 @@ const OrderDetail = () => {
             <div className="max-w-xs">
               <div className="rounded-lg bg-white py-3 shadow-xl">
                 <div className="photo-wrapper p-2">
+                  {console.log(prodData?.user)}
                   <img
                     className="mx-auto h-32 w-32 rounded-full"
-                    src={`${BASEURL}/${prodData?.user?.image}`}
+                    crossorigin="anonymous"
+                    src={
+                      prodData?.user?.authType === 'GOOGLE'
+                        ? prodData?.user?.image
+                        : `${BASEURL}/${prodData?.user?.image}`
+                    }
+                    // src={`${BASEURL}/${prodData?.user?.image}`}
                     alt="profile image"
                   />
                 </div>
                 <div className="p-2">
-                  <h3 className="text-gray-900 text-center text-xl font-medium leading-8">
+                  <h3 className="text-center text-xl font-medium leading-8 text-gray-900">
                     {prodData?.user?.name}
                   </h3>
 
                   <table className="my-3 text-xs">
                     <tbody>
                       <tr>
-                        <td className="text-gray-500 px-2 py-2 font-semibold">
+                        <td className="px-2 py-2 font-semibold text-gray-500">
                           Phone
                         </td>
                         <td className="px-2 py-2">
@@ -584,7 +602,7 @@ const OrderDetail = () => {
                         </td>
                       </tr>
                       <tr>
-                        <td className="text-gray-500 px-2 py-2 font-semibold">
+                        <td className="px-2 py-2 font-semibold text-gray-500">
                           Email
                         </td>
                         <td className="px-2 py-2">{prodData?.user?.email}</td>
