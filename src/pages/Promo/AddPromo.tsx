@@ -8,7 +8,10 @@ import { BASEURL } from '../../components/Api/Api_Url';
 export default function AddPromo() {
   const [promoCode, setPromoCode] = useState('');
   const [discount, setDiscount] = useState<number>(0);
-  const [expireyDate, setexpireyDate] = useState('')
+  // const [token, setToken] = useState<number>(0);
+  const token = 12321;
+
+  const [expireyDate, setexpireyDate] = useState('');
   const [isFileSelected, setIsFileSelected] = useState(false);
 
   const [promoCodeError, setPromoCodeError] = useState('');
@@ -20,8 +23,6 @@ export default function AddPromo() {
 
   const inputRef = React.useRef<HTMLInputElement>(null);
 
-
- 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   const formData = new FormData();
@@ -48,35 +49,33 @@ export default function AddPromo() {
     } else {
       setPromoCodeError('');
     }
-    if(!discount){
+    if (!discount) {
       setdiscountError('Please enter the discount value.');
       isValid = false;
-    }else{
-      setdiscountError('')
+    } else {
+      setdiscountError('');
     }
-    if(!expireyDate){
+    if (!expireyDate) {
       setexpireDateError('Please enter the expire date.');
       isValid = false;
-    }else{
-      setexpireDateError('')
+    } else {
+      setexpireDateError('');
     }
 
     return isValid;
   };
 
   const handleSubmits = async () => {
-    console.log("Logging FormData as object:");
-
+    console.log('Logging FormData as object:');
 
     if (validateForm()) {
       try {
-        const response = await axios.post(
-          `${BASEURL}/api/admin/addPromo`,
-         {promoCode:promoCode,
+        const response = await axios.post(`${BASEURL}/api/admin/addPromo`, {
+          promoCode: promoCode,
           discount,
-          expiryDate:expireyDate
-        }
-        );
+          token,
+          expiryDate: expireyDate,
+        });
         if (response.status === 200) {
           setPromoCode('');
 
@@ -114,12 +113,13 @@ export default function AddPromo() {
                     type="text"
                     placeholder="Place promo code here"
                     required
-                    className={`font-small w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-sm outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary ${promoCodeError ? 'border-red-500' : ''
-                      }`}
+                    className={`font-small w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-sm outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary ${
+                      promoCodeError ? 'border-red-500' : ''
+                    }`}
                   />
                   {promoCodeError && (
                     <p
-                      className="text-red-500 text-xs"
+                      className="text-xs text-red-500"
                       style={{ color: 'red' }}
                     >
                       {promoCodeError}
@@ -141,15 +141,21 @@ export default function AddPromo() {
                       type="number"
                       placeholder="Place discount here"
                       required
-                      className={`font-small w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-sm outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary ${discountError ? 'border-red-500' : ''
-                        }`}
+                      className={`font-small w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-sm outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary ${
+                        discountError ? 'border-red-500' : ''
+                      }`}
                     />
-                    <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                      <span className="text-gray-500 dark:text-gray-400">$</span>
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                      <span className="text-gray-500 dark:text-gray-400">
+                        $
+                      </span>
                     </div>
                   </div>
                   {discountError && (
-                    <p className="text-red-500 text-xs" style={{ color: 'red' }}>
+                    <p
+                      className="text-xs text-red-500"
+                      style={{ color: 'red' }}
+                    >
                       {discountError}
                     </p>
                   )}
@@ -167,12 +173,13 @@ export default function AddPromo() {
                     type="date"
                     placeholder="Place promo code here"
                     required
-                    className={`font-small w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-sm outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary ${expireDateError ? 'border-red-500' : ''
-                      }`}
+                    className={`font-small w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-sm outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary ${
+                      expireDateError ? 'border-red-500' : ''
+                    }`}
                   />
                   {expireDateError && (
                     <p
-                      className="text-red-500 text-xs"
+                      className="text-xs text-red-500"
                       style={{ color: 'red' }}
                     >
                       {expireDateError}
